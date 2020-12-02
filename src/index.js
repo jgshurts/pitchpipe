@@ -17,7 +17,8 @@ function Key(props) {
 
 class Keyboard extends React.Component {
 
-    handleClick(note) {
+    async handleClick(note) {
+        await Tone.start();
         const sampler = new Tone.Sampler({
             urls: {
                 "E2": "E2.mp3",
@@ -34,9 +35,10 @@ class Keyboard extends React.Component {
         this.setState( {synth: sampler});
 
         Tone.loaded().then(() => {
-            this.state.synth.triggerAttackRelease(note, 4);
-            this.state.synth.context.resume();
-        })
+            this.state.synth.context.resume().then(() => {
+                this.state.synth.triggerAttackRelease(note, 4)
+            });
+        });
     }
 
     renderKey(i) {
@@ -112,6 +114,7 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+
         const instrumentData = new Map([
             ["Guitar", ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']],
             ["Mandolin", ['G3', 'D4', 'A4', 'E5']],
