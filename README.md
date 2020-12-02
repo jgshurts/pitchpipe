@@ -20,9 +20,21 @@ I have set up this app to produce open-string tones for Guitar, Mandolin and
 Octave Mandolin, but it's easy to add new instruments, and to remove those
 already here.
 
-* Instrument configuration is in the constructor of class App, located near the bottom of index.js.
-The `instrumentData` map correlates instrument names with sets of notes. You may add new 
-entries to this map, or remove existing entries, as your heart desires.
+* Instrument configuration is in the constructor of class App, located near 
+the bottom of index.js. The `instrumentData` map correlates instrument names 
+with instrument data objects. You may add new  entries to this map, or remove 
+existing entries, as your heart desires.
+
+* The instrument data object for each instrument contains two properties:
+   * `samplesUrl`: the name of a directory within public/samples/ in this code base,
+   where the sample files for this instrument exist. Note that currently only .mp3
+   files are supported.
+   * `notes`: an array of octave-specific notes that are to appear on the keyboard
+   when this instrument is rendered. If `samplesUrl` is anything other than 'default',
+   the app will look for MP3 files in the given directory name, and will assume
+   that there is one file for each note in the `notes` array. If you don't have
+   samples for an instrument, specify 'default' as the samplesUrl, and you'll get
+   guitar sounds for that instrument. 
 
 * Note that just below the building of the `instrumentData` map, you'll see the following:
 `this.state = {instruments: instrumentData, selectedInstrument: "Guitar"};`
@@ -31,57 +43,8 @@ selected instrument (Guitar), which will render when a user first comes to the s
 If you remove Guitar from the instrument map, you'll have to select a different 
 default instrument as the value for `selectedInstrument` in this line of code.
 
-### Wait - everything sounds like a guitar!
-Yes, currently it does. Specifically, my 1996 Santa Cruz OM-PW. There is a dearth
-of quality, free-of-charge instrument samples on the web, so I recorded these
-myself. I'll be adding new samples soon (yes, I have a mandolin and an octave 
-mandolin). It's relatively easy to add new samples yourself, should you want
-to do that.
 
-In index.js, in the `handleClick()` method of `class Keyboard`, we configure an
-instance of ToneJS's `Tone.Sampler` class. If you've ever played around with a 
-synthesizer that supports sampling, you'll get what this thing does. You feed it
-a set of samples (recordings of anything), and tell it which "notes" (think keys
-on a keyboard) the samples correspond to. I recorded all the open strings on the
-guitar and mapped those.
-
-```
-    handleClick(note) {
-        const sampler = new Tone.Sampler({
-            urls: {
-                "E2": "E2.mp3",
-                "A2": "A2.mp3",
-                "D3": "D3.mp3",
-                "G3": "G3.mp3",
-                "B3": "B3.mp3",
-                "E4": "E4.mp3",
-            },
-            release: 1,
-            baseUrl: "http://localhost:3000/samples/guitar/",
-        }).toDestination();
-
-        this.setState( {synth: sampler});
-
-        Tone.loaded().then(() => {
-            this.state.synth.triggerAttackRelease(note, 4);
-            this.state.synth.context.resume();
-        })
-    }
-```
-
-Here's the cool bit about Tone.Sampler: you can tell it to play other notes - notes
-for which you haven't fed it a sample - and it'll pick what it figures is the closest
-sample you've provided, and will raise or lower the pitch accordingly. Cool, ain't it?
-
-Notice the `baseUrl` parameter in the code above. This is how we tell ToneJS where
-we've stored the samples. The MP3 files are in this code base, in public/instruments/guitars.
-If you add more samples, you'll probably want to have one instrument folder for
-each instrument sampled, and you'll have to tweak the above code so it can find them all.
-Addition of new instruments is on my dev backlog, so I'll have a better pattern
-set up shortly. 
-
-
-### A Note on Rendering
+### A Note (ahem) on Rendering
 The CSS in this app is currently quite basic. If you plan to expand the number of instruments 
 significantly, or create an instrument that has more than 10 or so notes, you'll 
 probably not like what you see in terms of visualization. Work is ongoing, and I'll
