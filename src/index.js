@@ -21,18 +21,12 @@ class Keyboard extends React.Component {
 
 
     async handleClick(note) {
-        let samplesUrl = this.props.instrumentData.samplesUrl;
-        let notes = this.props.instrumentData.notes;
-        // use guitar samples for any instrument set up to use default samples
-        if(samplesUrl === 'default') {
-            samplesUrl = 'guitar';
-            notes = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'];
-        }
+        let samplesUrl = this.props.instrumentData.sampleSet;
 
         const baseUrl = "http://localhost:3000/samples/";
         const fullBaseUrl = baseUrl + samplesUrl + "/";
         let sampleUrls = {}
-        for(const note of notes) {
+        for(const note of this.props.sampledNotes) {
             sampleUrls[note] = note + ".mp3";
         }
         await Tone.start();
@@ -130,12 +124,22 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         const instrumentData = new Map([
-            ["Guitar", {samplesUrl: "guitar", notes: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']}],
-            ["Mandolin", {samplesUrl: "mandolin", notes: ['G3', 'D4', 'A4', 'E5']}],
-            ["Octave Mandolin", {samplesUrl: "default", notes: ['G2', 'D3', 'A3', 'E4']}]
+            ["Guitar", {sampleSet: "guitar", notes: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']}],
+            ["Mandolin", {sampleSet: "mandolin", notes: ['G3', 'D4', 'A4', 'E5']}],
+            ["Mandola", {sampleSet: "mandolin", notes: ['C3', 'G3', 'D4', 'A4']}],
+            ["Octave Mandolin", {sampleSet: "mandolin", notes: ['G2', 'D3', 'A3', 'E4']}],
+            ["Banjo", {sampleSet: "mandolin", notes: ['G4', 'C3', 'G3', 'B3', 'D4']}],
+            ["Ukulele", {sampleSet: "guitar", notes: ['G4', 'C4', 'E4', 'A4']}],
+        ]);
+        const sampleSets = new Map([
+            ["guitar", {sampledNotes: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']}],
+            ["mandolin", {sampledNotes: ['G3', 'D4', 'A4', 'E5']}],
         ]);
 
-        this.state = {instruments: instrumentData, selectedInstrument: "Guitar"};
+        this.state = {
+            instruments: instrumentData,
+            sampleSets: sampleSets,
+            selectedInstrument: "Guitar"};
     }
 
     handleInstrumentClick(name) {
@@ -143,13 +147,16 @@ class App extends React.Component {
     }
 
     render() {
+        const instrumentData = this.state.instruments.get(this.state.selectedInstrument);
+        const sampledNotes = this.state.sampleSets.get(instrumentData.sampleSet).sampledNotes;
         return (
             <div className={"container"}>
                 <p className={"instrument-header"}>Select an Instrument</p>
                 <p className={"keyboard-header"}>Press a key and tune away.</p>
                 <Keyboard
                     instrument={this.state.selectedInstrument}
-                    instrumentData={this.state.instruments.get(this.state.selectedInstrument)}
+                    instrumentData={instrumentData}
+                    sampledNotes={sampledNotes}
                 />
                 <Instruments instruments={this.state.instruments}
                              selectedInstrument={this.state.selectedInstrument}
