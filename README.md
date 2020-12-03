@@ -33,7 +33,11 @@ existing entries, as your heart desires.
    configured, for example, Ukulele borrows the 'guitar' sample set, while Mandola
    and Octave Mandolin borrow the 'mandolin' sample set. In this way, we can give
    instruments a voice that is _similar_ to the actual instrument, until we have
-   time to record it (or the money to buy one).
+   time to record it (or the money to buy one). This borrowing of samples works because
+   of the magic of Tone.Sampler, which will automatically pitch-shift an existing
+   sample (MP3 file) so that it plays a different note. It chooses a sample that is
+   closest to the note that is to be played, so the resulting tone doesn't sound
+   weird. 
    * `notes`: an array of octave-specific notes that are to appear on the keyboard
    when this instrument is rendered. If `samplesUrl` is anything other than 'default',
    the app will look for MP3 files in the given directory name, and will assume
@@ -46,7 +50,7 @@ independently of instruments. There is now a `sampleSets` map in the `App` class
 is the sample set name, which must be identical (including case) to the directory in which the
 sample files for the sample set are located. The values in this map are objects, currently
 with just one property:
-   * sampledNotes: An array of note names, which must correspond exactly to the MP3 file names
+   * `sampledNotes`: An array of note names, which must correspond exactly to the MP3 file names
    found in the sample set directory. This information is needed to configure a Tone.Sampler
    properly.
 
