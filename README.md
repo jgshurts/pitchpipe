@@ -26,9 +26,14 @@ with instrument data objects. You may add new  entries to this map, or remove
 existing entries, as your heart desires.
 
 * The instrument data object for each instrument contains two properties:
-   * `samplesUrl`: the name of a directory within public/samples/ in this code base,
-   where the sample files for this instrument exist. Note that currently only .mp3
-   files are supported.
+   * `sampleSet`: the name of a sample set, which is a directory containing MP3
+   files with individual sampled notes. The notes in the sample set may not
+   correspond to the notes we'll play for an instrument; this allows us to "borrow"
+   a sample set for an instrument that hasn't yet been sampled. As currently
+   configured, for example, Ukulele borrows the 'guitar' sample set, while Mandola
+   and Octave Mandolin borrow the 'mandolin' sample set. In this way, we can give
+   instruments a voice that is _similar_ to the actual instrument, until we have
+   time to record it (or the money to buy one).
    * `notes`: an array of octave-specific notes that are to appear on the keyboard
    when this instrument is rendered. If `samplesUrl` is anything other than 'default',
    the app will look for MP3 files in the given directory name, and will assume
@@ -36,19 +41,14 @@ existing entries, as your heart desires.
    samples for an instrument, specify 'default' as the samplesUrl, and you'll get
    guitar sounds for that instrument. 
 
-* Note that just below the building of the `instrumentData` map, you'll see the following:
-`this.state = {instruments: instrumentData, selectedInstrument: "Guitar"};`
-This line of code tucks away the instruments just built, but also sets a default
-selected instrument (Guitar), which will render when a user first comes to the site.
-If you remove Guitar from the instrument map, you'll have to select a different 
-default instrument as the value for `selectedInstrument` in this line of code.
-
-
-### A Note (ahem) on Rendering
-The CSS in this app is currently quite basic. If you plan to expand the number of instruments 
-significantly, or create an instrument that has more than 10 or so notes, you'll 
-probably not like what you see in terms of visualization. Work is ongoing, and I'll
-be expanding the app's ability to gracefully accommodate more instruments / notes.
+* A recent addition is the ability to define sample sets (MP3 files used to generate sound)
+independently of instruments. There is now a `sampleSets` map in the `App` class. The key
+is the sample set name, which must be identical (including case) to the directory in which the
+sample files for the sample set are located. The values in this map are objects, currently
+with just one property:
+   * sampledNotes: An array of note names, which must correspond exactly to the MP3 file names
+   found in the sample set directory. This information is needed to configure a Tone.Sampler
+   properly.
 
 
 ## Available Scripts
