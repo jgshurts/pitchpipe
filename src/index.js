@@ -5,13 +5,15 @@ import * as Tone from 'tone'
 
 function Key(props) {
     return (
-        <button
+        <li
             className="key-white"
             onClick={props.onClick}
             style={{width: props.width}}
         >
-            {props.value}
-        </button>
+            <p className={"key-note"}>
+                {props.value}
+            </p>
+        </li>
     );
 }
 
@@ -50,7 +52,7 @@ class Keyboard extends React.Component {
     }
 
     renderKey(i) {
-        const keyWidth = 300/this.props.instrumentData.notes.length
+        const keyWidth = 400/this.props.instrumentData.notes.length
         return (
             <Key
                 key={i.toString()}
@@ -68,22 +70,27 @@ class Keyboard extends React.Component {
         }
 
         return (
-                <div className={"keyboard"}>
+                <ul className={"keyboard"}>
                     {keyElements}
-                </div>
+                </ul>
         );
     }
 }
 
 function Instrument(props) {
+
+    let cssClass = "instrument";
+    if(props.isSelected) {
+        cssClass = cssClass + '-selected'
+    }
     return (
-        <button
-            className="instrument"
+        <li
+            className={cssClass}
             style={{width: props.width}}
             onClick={props.onClick}
         >
             {props.value}
-        </button>
+        </li>
     );
 }
 
@@ -91,27 +98,27 @@ function Instrument(props) {
 class Instruments extends React.Component {
 
     renderInstrument(name) {
-        const buttonWidth = 300/this.props.instruments.size
 
         return (
             <Instrument
                 key={name}
                 value={name}
+                isSelected={name === this.props.selectedInstrument}
                 onClick={() => this.props.onClick(name)}
-                width={buttonWidth}
             />
         );
     }
 
     render() {
-        const instrumentButtons = [];
+
+        const instrumentElements = [];
         for(const name of this.props.instruments.keys()) {
-            instrumentButtons.push(this.renderInstrument(name));
+            instrumentElements.push(this.renderInstrument(name));
         }
 
         return (
             <div className={"instruments"}>
-                {instrumentButtons}
+                {instrumentElements}
             </div>
         )
     }
@@ -138,6 +145,8 @@ class App extends React.Component {
     render() {
         return (
             <div className={"container"}>
+                <p className={"instrument-header"}>Select an Instrument</p>
+                <p className={"keyboard-header"}>Press a key and tune away.</p>
                 <Keyboard
                     instrument={this.state.selectedInstrument}
                     instrumentData={this.state.instruments.get(this.state.selectedInstrument)}

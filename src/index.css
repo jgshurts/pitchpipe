@@ -1,55 +1,97 @@
 .container {
-  width: 90vh;
-  height: 90vh;
-  background-color: #edc;
-  position: relative;
+  display: grid;
+  grid-template-columns: [left] 28% [right] 72%;
+  grid-template-rows: 15% 85%;
+  grid-template-areas: "instruments keyboard";
+  width: 800px;
+  height: 400px;
+  background-color: #beffff;
   border: 3px solid black;
 }
 
+.instrument-header {
+  align-self: center;
+  margin-left: 15px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.keyboard-header {
+  align-self: center;
+  justify-self: center;
+  font-family: Helvetica, Arial, sans-serif;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .instruments {
-  position: relative;
-  width: 300px;
-  height: 50px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -750%);
+  grid-area: 2 / 1 / 2 / 1;
+  justify-self: stretch;
+  align-self: start;
+  margin-left: 15px;
 }
 
 .instrument {
+  list-style: none;
   background: #fff;
-  border: 2px solid #444;
-  float: left;
-  font-size: 16px;
+  border: 1px solid black;
+  font-family: Helvetica, Arial, sans-serif;
+  color: black;
+  font-size: 15px;
   font-weight: normal;
-  text-align: center;
-  height: 40px;
-  width: 90px;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  padding-left: 4px;
+  padding-top: 6px;
+  height: 26px;
 }
 
+.instrument-selected {
+  list-style: none;
+  background: #eee;
+  border: 1px solid black;
+  font-family: Helvetica, Arial, sans-serif;
+  color: black;
+  font-size: 15px;
+  font-weight: bolder;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  padding-left: 4px;
+  padding-top: 6px;
+  height: 26px;
+}
 
 .keyboard {
+  grid-area: 2 / 2 / 2 / 2;
+  justify-self: center;
+  align-self: start;
+  margin-block-start: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  border-top: 8px solid black;
   position: relative;
-  width: 300px;
-  height: 150px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -25%);
 
 }
 
 .key-white {
+  display: inline-block;
   background: #fff;
-  border: 2px solid #444;
-  float: left;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 200px;
-  padding-top: 150px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  margin-top: -4px;
+  font-size: 18px;
+  font-weight: lighter;
+  font-family: Helvetica, Arial, sans-serif;
+  height: 220px;
   text-align: center;
   width: 40px;
 }
 
-.board-row {
-  align-content: center;
+.key-note {
+  margin-block-start: 226px;
 }
