@@ -1,0 +1,74 @@
+{
+  "instrumentSets":
+  [
+    {
+      "name": "Guitars",
+      "defaultInstrument": "Guitar (Standard)",
+      "instruments":
+      [
+        {
+          "name": "Guitar (Standard)",
+          "instrument": {"sampleSet": "guitar", "notes": ["E2", "A2", "D3", "G3", "B3", "E4"]}
+        },
+        {
+          "name": "Guitar (Drop D)",
+          "instrument": {"sampleSet": "guitar", "notes": ["D2", "A2", "D3", "G3", "B3", "E4"]}
+        },
+        {
+          "name": "Guitar (DADGAD)",
+          "instrument": {"sampleSet": "guitar", "notes": ["D2", "A2", "D3", "G3", "A3", "D4"]}
+        },
+        {
+          "name": "Guitar (Open G)",
+          "instrument": {"sampleSet": "guitar", "notes": ["D2", "G2", "D3", "G3", "B3", "D4"]}
+        },
+        {
+          "name": "Bass Guitar",
+          "instrument": {"sampleSet": "guitar", "notes": ["E1", "A1", "D2", "G2"]}
+        }
+      ]
+    },
+    {
+      "name": "Mandolin Family",
+      "defaultInstrument": "Mandolin",
+      "instruments":
+      [
+        {
+          "name": "Mandolin",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G3", "D4", "A4", "E5"]}
+        },
+        {
+          "name": "Mandola",
+          "instrument": {"sampleSet": "mandolin", "notes": ["C3", "G3", "D4", "A4"]}
+        },
+        {
+          "name": "Octave Mandolin",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G2", "D3", "A3", "E4"]}
+        },
+        {
+          "name": "Mandocello",
+          "instrument": {"sampleSet": "mandolin", "notes": ["C2", "G2", "D3", "A3"]}
+        },
+        {
+          "name": "Mandobass",
+          "instrument": {"sampleSet": "mandolin", "notes": ["E1", "A1", "D2", "G2"]}
+        }
+      ]
+    },
+    {
+      "name": "Other",
+      "defaultInstrument": "Banjo",
+      "instruments":
+      [
+        {
+          "name": "Banjo",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G4", "C3", "G3", "B3", "D4"]}
+        },
+        {
+          "name": "Ukulele",
+          "instrument": {"sampleSet": "guitar", "notes": ["G4", "C4", "E4", "A4"]}
+        }
+      ]
+    }
+  ]
+}

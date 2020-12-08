@@ -1,0 +1,43 @@
+{
+  "instrumentSets":
+  [
+    {
+      "name": "Guitars",
+      "defaultInstrument": "Guitar (Standard)",
+      "instruments":
+      [
+        {
+          "name": "Guitar (Standard)",
+          "instrument": {"sampleSet": "guitar", "notes": ["E2", "A2", "D3", "G3", "B3", "E4"]}
+        }
+      ]
+    },
+    {
+      "name": "Other Stringed",
+      "defaultInstrument": "Mandolin",
+      "instruments":
+      [
+        {
+          "name": "Mandolin",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G3", "D4", "A4", "E5"]}
+        },
+        {
+          "name": "Mandola",
+          "instrument": {"sampleSet": "mandolin", "notes": ["C3", "G3", "D4", "A4"]}
+        },
+        {
+          "name": "Octave Mandolin",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G2", "D3", "A3", "E4"]}
+        },
+        {
+          "name": "Banjo",
+          "instrument": {"sampleSet": "mandolin", "notes": ["G4", "C3", "G3", "B3", "D4"]}
+        },
+        {
+          "name": "Ukulele",
+          "instrument": {"sampleSet": "guitar", "notes": ["G4", "C4", "E4", "A4"]}
+        }
+      ]
+    }
+  ]
+}

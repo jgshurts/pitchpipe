@@ -1,0 +1,6 @@
+{
+  "sampleSets": [
+    {"name": "guitar", "sampledNotes": ["E2", "A2", "D3", "G3", "B3", "E4"]},
+    {"name": "mandolin", "sampledNotes": ["G3", "D4", "A4", "E5"]}
+  ]
+}
