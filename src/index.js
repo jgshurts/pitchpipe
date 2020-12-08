@@ -2,8 +2,7 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Tone from 'tone'
-
-const AppConfig = require('../src/AppConfig.js')
+import AppConfig from '../src/AppConfig.js';
 
 function Key(props) {
     return (

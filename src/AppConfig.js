@@ -2,7 +2,7 @@ const fs = require('fs')
 const instrumentData = require("./instrumentData.json");
 const sampleSetData = require("./sampleSets.json");
 
-class AppConfig {
+export default class AppConfig {
 
     getInstrumentData(jsonInstrumentsData) {
         let instrumentSetsMap = new Map();
@@ -32,5 +32,3 @@ class AppConfig {
         return this.getSampleSetData(sampleSetData);
     }
 }
-
-module.exports = AppConfig
