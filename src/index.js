@@ -24,7 +24,7 @@ class Keyboard extends React.Component {
     async handleClick(note) {
         let samplesUrl = this.props.instrumentData.sampleSet;
 
-        const baseUrl = "http://samples.jeffshurts.com/";
+        const baseUrl = "https://d2wi09gpmp69g4.cloudfront.net/";
         const fullBaseUrl = baseUrl + samplesUrl + "/";
         let sampleUrls = {}
         for(const note of this.props.sampledNotes) {
