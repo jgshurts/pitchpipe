@@ -8,7 +8,8 @@ this app as a way to learn a couple things - React, and ToneJS, an open source
 sound-generation JavaScript library.
 
 If you have a house full of instruments, host this app somewhere and you'll never have
-to guess at an A440 again.
+to go hunting for your electronic tuner again. Or, if my instrument configuration suits you,
+it's currently running at [https://www.jeffshurts.me](https://www.jeffshurts.me).
 
 ## Simple Customization Tips
 
