@@ -31,13 +31,14 @@ export class Keyboard extends React.Component {
             urls: sampleUrls,
             release: 1,
             baseUrl: fullBaseUrl,
+            volume: 11
         }).toDestination();
 
         this.setState( {synth: sampler});
 
         Tone.loaded().then(() => {
             this.state.synth.context.resume().then(() => {
-                this.state.synth.triggerAttackRelease(note, 4)
+                this.state.synth.triggerAttackRelease(note, 3.4)
             });
         });
     }
