@@ -67,6 +67,18 @@
         {
           "name": "Ukulele",
           "instrument": {"sampleSet": "guitar", "notes": ["G4", "C4", "E4", "A4"]}
+        },
+        {
+          "name": "Piano, C major",
+          "instrument": {"sampleSet": "guitar", "notes": ["C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4"]}
+        },
+        {
+          "name": "Piano, G major",
+          "instrument": {"sampleSet": "guitar", "notes": ["G2", "A2", "B2", "C3", "D3", "E3", "F#3", "G3"]}
+        },
+        {
+          "name": "Piano, B flat minor",
+          "instrument": {"sampleSet": "guitar", "notes": ["Bb2", "C3", "Db3", "Eb3", "F3", "Gb3", "Ab3", "Bb3"]}
         }
       ]
     }
