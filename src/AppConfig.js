@@ -1,4 +1,3 @@
-const fs = require('fs')
 const instrumentData = require("./instrumentData.json");
 const sampleSetData = require("./sampleSets.json");
 

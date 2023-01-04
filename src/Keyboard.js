@@ -31,7 +31,7 @@ export class Keyboard extends React.Component {
             urls: sampleUrls,
             release: 1,
             baseUrl: fullBaseUrl,
-            volume: 11
+            volume: 7
         }).toDestination();
 
         this.setState( {synth: sampler});
