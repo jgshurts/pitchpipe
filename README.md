@@ -4,8 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 PitchPipe is a simple React application that helps owners of any musical instrument 
 (primarily stringed instruments as configured) to keep their babies in tune. I created
-this app as a way to learn a couple things - React, and ToneJS, an open source 
-sound-generation JavaScript library.
+this app as a way to learn a couple things - React.JS, and ToneJS, an open source 
+JavaScript library used to generate synthetic tones or play back sampled music at specified
+pitches. This app uses the latter feature, playing tones I recorded from a guitar and
+a mandolin.
 
 If you have a house full of instruments, host this app somewhere and you'll never have
 to go hunting for your electronic tuner again. Or, if my instrument configuration suits you,
@@ -18,43 +20,52 @@ This app is very extensible, should you wish to set it up for different instrume
 ### Adding and Removing Instruments
 
 I have set up this app to produce open-string tones for Guitar, Mandolin and 
-Octave Mandolin, but it's easy to add new instruments, and to remove those
-already here.
+Octave Mandolin, but it's easy to add new instruments, or change the tones
+they play, and to remove instruments if you don't need them.
 
-* Instrument configuration is in the constructor of class App, located near 
-the bottom of index.js. The `instrumentData` map correlates instrument names 
-with instrument data objects. You may add new  entries to this map, or remove 
-existing entries, as your heart desires.
+* Instrument configuration data is in instrumentData.json. This JSON construct
+  is a collection of instrumentSets. Each instrumentSet is a collection of 
+  instruments. This two-level hierarchy lets you organize the user interface into
+  groups (sets) of logically related instruments. The config included has sets
+  for Guitars, Mandolin Family and Other. If you're more of a symphonic person,
+  you might use Brass, Woodwinds and Strings (and a different set of sampled tones,
+  but that's a topic for later).
 
-* The instrument data object for each instrument contains two properties:
-   * `sampleSet`: the name of a sample set, which is a directory containing MP3
-   files with individual sampled notes. The notes in the sample set may not
-   correspond to the notes we'll play for an instrument; this allows us to "borrow"
-   a sample set for an instrument that hasn't yet been sampled. As currently
-   configured, for example, Ukulele borrows the 'guitar' sample set, while Mandola
-   and Octave Mandolin borrow the 'mandolin' sample set. In this way, we can give
-   instruments a voice that is _similar_ to the actual instrument, until we have
-   time to record it (or the money to buy one). This borrowing of samples works because
-   of the magic of Tone.Sampler, which will automatically pitch-shift an existing
-   sample (MP3 file) so that it plays a different note. It chooses a sample that is
-   closest to the note that is to be played, so the resulting tone doesn't sound
-   weird. 
-   * `notes`: an array of octave-specific notes that are to appear on the keyboard
-   when this instrument is rendered. If `samplesUrl` is anything other than 'default',
-   the app will look for MP3 files in the given directory name, and will assume
-   that there is one file for each note in the `notes` array. If you don't have
-   samples for an instrument, specify 'default' as the samplesUrl, and you'll get
-   guitar sounds for that instrument. 
+* Each entry in `instruments` within an `instrumentSet` defines an instrument you'll
+  be tuning using this application. `name` is directly rendered in the user interface
+  in the instrument selection area of the UI. `instrument` is a small data structure
+  that lets you specify two important values which control the behavior of the
+  instrument:
+   * `sampleSet`: the name of a sample set, which is a pointer to an entry in
+   the `sampleSets` JSON object in sampleSets.JSON. The `sampleSets` data structure
+   tells this application about any sets of tones (samples from an instrument) you
+   have either purchased, recorded yourself (as I did), or borrowed from a friend. 
+   The tone notation in this data structure is metadata that lets the app know
+   which specific tones you have sampled (you should have an MP3 file for each item
+   in `sampledNotes`), with the note as the file name (C2.mp3, A4.mp3, etc.)
 
-* A recent addition is the ability to define sample sets (MP3 files used to generate sound)
-independently of instruments. There is now a `sampleSets` map in the `App` class. The key
-is the sample set name, which must be identical (including case) to the directory in which the
-sample files for the sample set are located. The values in this map are objects, currently
-with just one property:
-   * `sampledNotes`: An array of note names, which must correspond exactly to the MP3 file names
-   found in the sample set directory. This information is needed to configure a Tone.Sampler
-   properly.
-
+   * `notes`, which tells the app what notes to render in the UI when a given
+   instrument has been selected, and to play when you click on a key representing
+   that note.
+    
+*  To explain a bit further, the `notes` collection in an instrument defines
+   the set of tones that will render in the UI for the currently-selected instrument,
+   and play when you click on a note. The `sampledNotes` collection in a sampleSet 
+   has nothing to do with the UI - it tells the app which tones are available to read 
+   from the file system (or AWS S3, as currently set up). 
+   Why aren't sampled notes and playback notes the same, 
+   you ask? How can an instrument play back tones that aren't exactly what's been sampled? This is the magic of ToneJS.
+   Remember that scene in Ferris Bueller's Day Off when he fakes sick by playing
+   sampled coughs and sneezes on a keyboard? ToneJS is doing the same thing. If you
+   don't mind slightly artificial-sounding sounds, you can get by with a single 
+   `sampledNote` - ToneJS knows how to speed up or slow down the frequency at playback
+   time to generate the note requested, using the note you sampled (recorded). In this 
+   default configuration, I sampled a standard mandolin (my lovely Weber Bitterroot), 
+   but use those same sampled notes to play back in much lower tunings 
+   (mandola, octave mandolin). The really cool thing with ToneJS is that it 
+   automatically selects a sample that is closest in pitch to the requested
+   playback note - so the more notes you sample, the better it will sound - no code
+   changes required. 
 
 ## Available Scripts
 
